@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Hub - هاب دانش‌آموزی</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: fit-content;
+            border: 1px solid #e1e8ed;
+        }
+
+        .sidebar h3 {
+            color: #1DA1F2;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #1DA1F2;
+            padding-bottom: 5px;
+        }
+
+        .menu-item {
+            padding: 12px 15px;
+            margin: 5px 0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-item:hover {
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .feed {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e1e8ed;
+            overflow: hidden;
+        }
+
+        .post-composer {
+            padding: 20px;
+            border-bottom: 1px solid #e1e8ed;
+            background: linear-gradient(135deg, #f8f9ff, #ffffff);
+        }
+
+        .composer-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .compose-input {
+            width: 100%;
+            min-height: 80px;
+            border: 2px solid #e1e8ed;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 1.1rem;
+            resize: vertical;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .compose-input:focus {
+            outline: none;
+            border-color: #1DA1F2;
+            box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.1);
+        }
+
+        .compose-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .compose-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .compose-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f7f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #1DA1F2;
+        }
+
+        .compose-icon:hover {
+            background: #1DA1F2;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .post-btn {
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .post-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 161, 242, 0.4);
+        }
+
+        .post {
+            padding: 20px;
+            border-bottom: 1px solid #e1e8ed;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .post:hover {
+            background: #f8f9ff;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .post-content {
+            margin: 15px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            max-width: 400px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #657786;
+        }
+
+        .action-btn:hover {
+            background: rgba(29, 161, 242, 0.1);
+            color: #1DA1F2;
+        }
+
+        .trending {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: fit-content;
+            border: 1px solid #e1e8ed;
+        }
+
+        .trending-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .trending-item:hover {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 15px 10px;
+        }
+
+        .trending-topic {
+            font-weight: bold;
+            color: #1DA1F2;
+            margin-bottom: 5px;
+        }
+
+        .trending-posts {
+            color: #657786;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 10px;
+            }
+            
+            .sidebar, .trending {
+                order: 3;
+            }
+        }
+
+        .notification-badge {
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+
+        .online-indicator {
+            width: 12px;
+            height: 12px;
+            background: #2ed573;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            border: 2px solid white;
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(29, 161, 242, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-action:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(29, 161, 242, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+
+        <div class="main-content">
+            <!-- Left Sidebar -->
+            <div class="sidebar">
+                <h3>📚 منوی اصلی</h3>
+                <div class="menu-item">
+                    <span>🏠</span>
+                    <span>خانه</span>
+                </div>
+                <div class="menu-item">
+                    <span>📖</span>
+                    <span>درس‌ها</span>
+                    <span class="notification-badge">12</span>
+                </div>
+                <div class="menu-item">
+                    <span>💬</span>
+                    <span>گفتگو</span>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="menu-item">
+                    <span>📝</span>
+                    <span>تکالیف</span>
+                </div>
+                <div class="menu-item">
+                    <span>🏆</span>
+                    <span>امتیازات</span>
+                </div>
+                <div class="menu-item">
+                    <span>👥</span>
+                    <span>گروه‌ها</span>
+                </div>
+                <div class="menu-item">
+                    <span>📊</span>
+                    <span>گزارش‌ها</span>
+                </div>
+                <div class="menu-item">
+                    <span>⚙️</span>
+                    <span>تنظیمات</span>
+                </div>
+            </div>
+
+            <!-- Main Feed -->
+            <div class="feed">
+                <!-- Post Composer -->
+                <div class="post-composer">
+                    <div class="composer-header">
+                        <div class="avatar" style="position: relative;">
+                            👨‍🎓
+                            <div class="online-indicator"></div>
+                        </div>
+                        <div>
+                            <strong>علی احمدی</strong>
+                            <div style="color: #657786; font-size: 0.9rem;">دانش‌آموز کلاس دوازدهم</div>
+                        </div>
+                    </div>
+                    <textarea class="compose-input" placeholder="چه چیز جدیدی یاد گرفته‌ای؟ تجربه‌ات را با دوستانت به اشتراک بگذار..."></textarea>
+                    <div class="compose-actions">
+                        <div class="compose-icons">
+                            <div class="compose-icon" title="عکس">📷</div>
+                            <div class="compose-icon" title="فایل">📎</div>
+                            <div class="compose-icon" title="لوکیشن">📍</div>
+                            <div class="compose-icon" title="احساسات">😊</div>
+                        </div>
+                        <button class="post-btn">انتشار</button>
+                    </div>
+                </div>
+
+                <!-- Posts -->
+                <div class="post">
+                    <div class="post-header">
+                        <div class="avatar">👩‍🎓</div>
+                        <div>
+                            <strong>مریم کریمی</strong>
+                            <span style="color: #657786; margin-right: 10px;">@maryam_k</span>
+                            <span style="color: #657786;">· 2 ساعت پیش</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        امروز در کلاس ریاضی یک روش جدید برای حل معادلات درجه دوم یاد گرفتم! 🧮 واقعاً جالب بود. کسی می‌خواد توضیحش بدم؟
+                    </div>
+
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <div class="avatar">👨‍🏫</div>
+                        <div>
+                            <strong>استاد حسینی</strong>
+                            <span style="color: #657786; margin-right: 10px;">@prof_hosseini</span>
+                            <span style="color: #657786;">· 4 ساعت پیش</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        🔬 آزمایش جدید فیزیک فردا در آزمایشگاه برگزار می‌شود. لطفاً کتاب‌های مربوطه را همراه داشته باشید. موضوع: نور و بازتاب
+                    </div>
+
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <div class="avatar">👨‍🎓</div>
+                        <div>
+                            <strong>رضا محمدی</strong>
+                            <span style="color: #657786; margin-right: 10px;">@reza_m</span>
+                            <span style="color: #657786;">· 6 ساعت پیش</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        📚 کتاب "شیمی آلی" رو تموم کردم! حالا وقتشه برای امتحان نهایی آماده بشم. کسی تجربه خوبی از روش‌های مطالعه شیمی داره؟
+                    </div>
+
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <div class="avatar">👩‍🎓</div>
+                        <div>
+                            <strong>فاطمه زارعی</strong>
+                            <span style="color: #657786; margin-right: 10px;">@fateme_z</span>
+                            <span style="color: #657786;">· 8 ساعت پیش</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        🎨 پروژه هنری که برای کلاس صنایع دستی ساختم رو تکمیل کردم! خیلی خوشحالم از نتیجه‌ش. امیدوارم استاد هم راضی باشه 🤞
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right Sidebar - Trending -->
+            <div class="trending">
+                <h3>🔥 موضوعات داغ</h3>
+                
+                <div class="trending-item">
+                    <div class="trending-topic">#امتحان_نهایی</div>
+                    <div class="trending-posts">245 پست</div>
+                </div>
+
+                <div class="trending-item">
+                    <div class="trending-topic">#پروژه_علوم</div>
+                    <div class="trending-posts">128 پست</div>
+                </div>
+
+                <div class="trending-item">
+                    <div class="trending-topic">#ریاضی_دوازدهم</div>
+                    <div class="trending-posts">89 پست</div>
+                </div>
+
+                <div class="trending-item">
+                    <div class="trending-topic">#کنکور_۱۴۰۴</div>
+                    <div class="trending-posts">356 پست</div>
+                </div>
+
+                <div class="trending-item">
+                    <div class="trending-topic">#گروه_مطالعه</div>
+                    <div class="trending-posts">67 پست</div>
+                </div>
+
+                <hr style="margin: 20px 0; border: none; border-top: 1px solid #e1e8ed;">
+                
+                <h3 style="margin-top: 20px;">👥 دانش‌آموزان فعال</h3>
+                
+                <div style="margin-top: 15px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; border-radius: 10px; cursor: pointer;" onmouseover="this.style.background='#f8f9ff'" onmouseout="this.style.background='transparent'">
+                        <div class="avatar" style="width: 35px; height: 35px; font-size: 0.9rem;">👨‍🎓</div>
+                        <div>
+                            <strong style="font-size: 0.9rem;">احمد رضایی</strong>
+                            <div style="color: #657786; font-size: 0.8rem;">1.2k امتیاز</div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; border-radius: 10px; cursor: pointer;" onmouseover="this.style.background='#f8f9ff'" onmouseout="this.style.background='transparent'">
+                        <div class="avatar" style="width: 35px; height: 35px; font-size: 0.9rem;">👩‍🎓</div>
+                        <div>
+                            <strong style="font-size: 0.9rem;">سارا احمدی</strong>
+                            <div style="color: #657786; font-size: 0.8rem;">980 امتیاز</div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 10px; cursor: pointer;" onmouseover="this.style.background='#f8f9ff'" onmouseout="this.style.background='transparent'">
+                        <div class="avatar" style="width: 35px; height: 35px; font-size: 0.9rem;">👨‍🎓</div>
+                        <div>
+                            <strong style="font-size: 0.9rem;">حسین کریمی</strong>
+                            <div style="color: #657786; font-size: 0.8rem;">856 امتیاز</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Action Button -->
+        <div class="floating-action" title="پیام جدید">
+            ✉️
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Post composer functionality
+            const composeInput = document.querySelector('.compose-input');
+            const postBtn = document.querySelector('.post-btn');
+            
+            composeInput.addEventListener('input', function() {
+                if (this.value.trim().length > 0) {
+                    postBtn.style.opacity = '1';
+                    postBtn.disabled = false;
+                } else {
+                    postBtn.style.opacity = '0.5';
+                    postBtn.disabled = true;
+                }
+            });
+
+            // Like button functionality
+            document.querySelectorAll('.action-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (this.innerHTML.includes('❤️')) {
+                        this.style.color = '#e1306c';
+                        const count = this.querySelector('span:last-child');
+                        if (count) {
+                            count.textContent = parseInt(count.textContent) + 1;
+                        }
+                    }
+                });
+            });
+
+            // Menu item interactions
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.menu-item').forEach(i => i.style.background = '');
+                    this.style.background = 'linear-gradient(135deg, #1DA1F2, #0d8bd9)';
+                    this.style.color = 'white';
+                });
+            });
+
+            // Floating action button
+            document.querySelector('.floating-action').addEventListener('click', function() {
+                composeInput.focus();
+                composeInput.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Post interactions
+            document.querySelectorAll('.post').forEach(post => {
+                post.addEventListener('click', function(e) {
+                    if (!e.target.closest('.action-btn')) {
+                        this.style.transform = 'scale(1.02)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                        }, 200);
+                    }
+                });
+            });
+
+            // Trending item clicks
+            document.querySelectorAll('.trending-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const topic = this.querySelector('.trending-topic').textContent;
+                    composeInput.value = `${topic} `;
+                    composeInput.focus();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
