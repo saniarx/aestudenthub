@@ -16,6 +16,12 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #f0f0f0;
         }
 
         .container {
@@ -25,6 +31,12 @@
             min-height: 100vh;
             box-shadow: 0 0 50px rgba(0,0,0,0.1);
             backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .container {
+            background: rgba(30, 39, 46, 0.95);
+            color: #f0f0f0;
         }
 
         .main-content {
@@ -32,7 +44,7 @@
             grid-template-columns: 1fr 2fr 1fr;
             gap: 20px;
             padding: 20px;
-            min-height: 100vh;
+            min-height: calc(100vh - 60px);
         }
 
         .sidebar {
@@ -42,6 +54,12 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             height: fit-content;
             border: 1px solid #e1e8ed;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .sidebar {
+            background: #1e272e;
+            border-color: #2d3436;
         }
 
         .sidebar h3 {
@@ -69,18 +87,34 @@
             transform: translateX(-5px);
         }
 
+        body.dark-mode .menu-item {
+            color: #f0f0f0;
+        }
+
         .feed {
             background: white;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border: 1px solid #e1e8ed;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .feed {
+            background: #1e272e;
+            border-color: #2d3436;
         }
 
         .post-composer {
             padding: 20px;
             border-bottom: 1px solid #e1e8ed;
             background: linear-gradient(135deg, #f8f9ff, #ffffff);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .post-composer {
+            background: linear-gradient(135deg, #2d3436, #1e272e);
+            border-color: #2d3436;
         }
 
         .composer-header {
@@ -94,13 +128,19 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
             font-size: 1.2rem;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .compose-input {
@@ -113,6 +153,14 @@
             resize: vertical;
             transition: all 0.3s ease;
             font-family: inherit;
+            background: white;
+            color: #333;
+        }
+
+        body.dark-mode .compose-input {
+            background: #2d3436;
+            border-color: #3d3d3d;
+            color: #f0f0f0;
         }
 
         .compose-input:focus {
@@ -146,6 +194,10 @@
             color: #1DA1F2;
         }
 
+        body.dark-mode .compose-icon {
+            background: #2d3436;
+        }
+
         .compose-icon:hover {
             background: #1DA1F2;
             color: white;
@@ -176,8 +228,16 @@
             cursor: pointer;
         }
 
+        body.dark-mode .post {
+            border-color: #2d3436;
+        }
+
         .post:hover {
             background: #f8f9ff;
+        }
+
+        body.dark-mode .post:hover {
+            background: #2d3436;
         }
 
         .post-header {
@@ -211,6 +271,10 @@
             color: #657786;
         }
 
+        body.dark-mode .action-btn {
+            color: #a4b0be;
+        }
+
         .action-btn:hover {
             background: rgba(29, 161, 242, 0.1);
             color: #1DA1F2;
@@ -223,6 +287,12 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             height: fit-content;
             border: 1px solid #e1e8ed;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .trending {
+            background: #1e272e;
+            border-color: #2d3436;
         }
 
         .trending-item {
@@ -232,10 +302,18 @@
             transition: all 0.3s ease;
         }
 
+        body.dark-mode .trending-item {
+            border-color: #2d3436;
+        }
+
         .trending-item:hover {
             background: #f8f9ff;
             border-radius: 10px;
             padding: 15px 10px;
+        }
+
+        body.dark-mode .trending-item:hover {
+            background: #2d3436;
         }
 
         .trending-topic {
@@ -247,6 +325,10 @@
         .trending-posts {
             color: #657786;
             font-size: 0.9rem;
+        }
+
+        body.dark-mode .trending-posts {
+            color: #a4b0be;
         }
 
         @media (max-width: 768px) {
@@ -304,9 +386,66 @@
             transform: scale(1.1);
             box-shadow: 0 8px 25px rgba(29, 161, 242, 0.6);
         }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9ff, #ffffff);
+            border-top: 1px solid #e1e8ed;
+            font-size: 0.9rem;
+            color: #657786;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode footer {
+            background: linear-gradient(135deg, #2d3436, #1e272e);
+            border-color: #2d3436;
+            color: #a4b0be;
+        }
+
+        footer a {
+            color: #1DA1F2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: rgba(0, 0, 0, 0.2);
+            color: #f0f0f0;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" title="تغییر حالت شب/روز">🌙</button>
+
     <div class="container">
         <div class="main-content">
             <!-- Left Sidebar -->
@@ -328,7 +467,7 @@
                 <div class="post-composer">
                     <div class="composer-header">
                         <div class="avatar" style="position: relative;">
-                            👨‍🎓
+                            <img src="hello.png" alt="تصویر پروفایل">
                             <div class="online-indicator"></div>
                         </div>
                     </div>
@@ -342,7 +481,9 @@
                 <div class="post">
                     <a href="saniar.html" style="text-decoration: none; color: inherit;">
                         <div class="post-header">
-                            <div class="avatar">👨‍🎓</div>
+                            <div class="avatar">
+                                <img src="saniar1.png" alt="تصویر پروفایل سانیار">
+                            </div>
                             <div>
                                 <strong>سانیار سخدری</strong>
                                 <span style="color: #657786; margin-right: 10px;">@saniar</span>
@@ -352,6 +493,22 @@
                             hello world
                         </div>
                     </a>
+                </div>
+
+                <!-- New Post from Sepher Zarghami -->
+                <div class="post">
+                    <div class="post-header">
+                        <div class="avatar">
+                            <img src="sepehr1.png" alt="تصویر پروفایل سپهر">
+                        </div>
+                        <div>
+                            <strong>سپهر ضرغامی</strong>
+                            <span style="color: #657786; margin-right: 10px;">@sepehr</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        ببین بارونه ☔
+                    </div>
                 </div>
             </div>
 
@@ -376,7 +533,9 @@
                 <div style="margin-top: 15px;">
                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; border-radius: 10px; cursor: pointer;" onmouseover="this.style.background='#f8f9ff'" onmouseout="this.style.background='transparent'">
                         <a href="saniar.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px; width: 100%;">
-                            <div class="avatar" style="width: 35px; height: 35px; font-size: 0.9rem;">👨‍🎓</div>
+                            <div class="avatar" style="width: 35px; height: 35px;">
+                                <img src="saniar1.png" alt="تصویر پروفایل سانیار" style="width: 100%; height: 100%;">
+                            </div>
                             <div>
                                 <strong style="font-size: 0.9rem;">سانیار سخدری</strong>
                                 <div style="color: #657786; font-size: 0.8rem;">۱ پست</div>
@@ -385,15 +544,22 @@
                     </div>
                     
                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; border-radius: 10px; cursor: pointer;" onmouseover="this.style.background='#f8f9ff'" onmouseout="this.style.background='transparent'">
-                        <div class="avatar" style="width: 35px; height: 35px; font-size: 0.9rem;">👩‍🎓</div>
+                        <div class="avatar" style="width: 35px; height: 35px;">
+                            <img src="sepehr1.png" alt="تصویر پروفایل سپهر" style="width: 100%; height: 100%;">
+                        </div>
                         <div>
-                            <strong style="font-size: 0.9rem;"> رادین عتیقی</strong>
-                            <div style="color: #657786; font-size: 0.8rem;">۰ پست</div>
+                            <strong style="font-size: 0.9rem;"> سپهر ضرغامی</strong>
+                            <div style="color: #657786; font-size: 0.8rem;">۱ پست</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer>
+            ساخته شده با عشق توسط <a href="saniar.html">سانیار سخدری</a>
+        </footer>
 
         <!-- Floating Action Button -->
         <div class="floating-action" title="پیام جدید">
@@ -402,6 +568,21 @@
     </div>
 
     <script>
+        // Dark mode toggle functionality
+        const darkModeToggle = document.querySelector('.dark-mode-toggle');
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            this.innerHTML = isDarkMode ? '☀️' : '🌙';
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '☀️';
+        }
+
         // Add some interactive functionality
         document.addEventListener('DOMContentLoaded', function() {
             // Post composer functionality
