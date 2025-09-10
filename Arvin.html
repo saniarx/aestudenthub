@@ -68,7 +68,7 @@
 
         .profile-banner {
             height: 200px;
-            background: url('saniar2.png') center/cover no-repeat;
+            background: url('') center/cover no-repeat;
             position: relative;
             overflow: hidden;
         }
@@ -430,11 +430,6 @@
             margin-bottom: 20px;
         }
 
-        .follow-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(29, 161, 242, 0.4);
-        }
-
         .achievements {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -476,7 +471,7 @@
             <button class="back-btn" onclick="history.back()">←</button>
             <div class="header-info">
                 <h1>آروین اعلمی</h1>
-                <p>۱ پست</p>
+                <p>۲ پست</p>
             </div>
         </header>
 
@@ -500,7 +495,7 @@
                 
                 <div class="profile-stats">
                     <div class="stat-item">
-                        <span class="stat-number">۱</span>
+                        <span class="stat-number">۲</span>
                         <span class="stat-label">پست</span>
                     </div>
                     <div class="stat-item">
@@ -517,6 +512,21 @@
             <div class="posts-section">
                 <div class="section-header">
                     📝 پست‌های آروین
+                </div>
+
+                <!-- پست جدید اضافه شده -->
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-avatar">
+                            <img src="Arvin1.png" alt="تصویر پروفایل آروین">
+                        </div>
+                        <div>
+                            <strong>آروین اعلمی</strong>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        سلام
+                    </div>
                 </div>
 
                 <div class="post">
@@ -561,29 +571,13 @@
                 
                 
                 <!-- Friends Section -->
-
+            </div>
+        </div>
+    </div>
 
     <script>
         // Interactive functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Follow button functionality
-            const followBtn = document.querySelector('.follow-btn');
-            let isFollowing = false;
-            
-            if (followBtn) {
-                followBtn.addEventListener('click', function() {
-                    if (isFollowing) {
-                        this.textContent = '+ دنبال کردن';
-                        this.style.background = 'linear-gradient(135deg, #1DA1F2, #0d8bd9)';
-                        isFollowing = false;
-                    } else {
-                        this.textContent = '✓ دنبال می‌کنید';
-                        this.style.background = 'linear-gradient(135deg, #2ed573, #27ae60)';
-                        isFollowing = true;
-                    }
-                });
-            }
-
             // Post interactions
             document.querySelectorAll('.post').forEach(post => {
                 post.addEventListener('click', function() {
