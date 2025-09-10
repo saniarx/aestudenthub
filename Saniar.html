@@ -56,7 +56,14 @@
             transform: scale(1.1);
         }
 
-        .header-info h1 {
+        .header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .header-info-content h1 {
             font-size: 1.5rem;
             margin-bottom: 5px;
             display: flex;
@@ -64,7 +71,7 @@
             gap: 8px;
         }
 
-        .header-info p {
+        .header-info-content p {
             opacity: 0.9;
             font-size: 0.9rem;
         }
@@ -165,7 +172,7 @@
         .profile-badges {
             display: flex;
             gap: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             flex-wrap: wrap;
         }
 
@@ -424,6 +431,12 @@
             .profile-info {
                 padding: 15px;
             }
+            
+            .header-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
         }
 
         .follow-btn {
@@ -496,6 +509,40 @@
                 height: 16px;
             }
         }
+        
+        /* استایل جدید برای دکمه افزودن به دوستان در پروفایل */
+        .profile-add-friend-btn {
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(29, 161, 242, 0.3);
+            text-decoration: none;
+        }
+        
+        .profile-add-friend-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(29, 161, 242, 0.4);
+            color: white;
+        }
+        
+        .profile-add-friend-btn.added {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+        }
+        
+        /* استایل برای ایموجی پست جدید */
+        .frustrated-emoji {
+            font-size: 1.5rem;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
@@ -504,8 +551,10 @@
         <header class="header">
             <button class="back-btn" onclick="history.back()">←</button>
             <div class="header-info">
-                <h1>سانیار سخدری <span class="verified-badge" title="تایید شده"></span></h1>
-                <p>۱ پست</p>
+                <div class="header-info-content">
+                    <h1>سانیار سخدری <span class="verified-badge" title="تایید شده"></span></h1>
+                    <p>۲ پست</p>
+                </div>
             </div>
         </header>
 
@@ -522,29 +571,25 @@
                 <h2>سانیار سخدری <span class="verified-badge" title="تایید شده"></span></h2>
                 <div class="profile-username">@Saniar <span class="verified-badge" title="تایید شده"></span></div>
                 <div class="profile-bio">
-                    دانش‌آموز کلاس دهم ریاضی 📚 عاشق ریاضی و فیزیک 🧮⚡ 
+                   موسس تویتی 
+                   عاشق شیمی و کامپیوتر 
                     <br>
                     <br>
                 </div>
                 
                 <div class="profile-stats">
                     <div class="stat-item">
-                        <span class="stat-number">۱</span>
+                        <span class="stat-number">۲</span>
                         <span class="stat-label">پست</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">1۰</span>
-                        <span class="stat-label">امتیاز</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">۸</span>
-                        <span class="stat-label">دوستان</span>
                     </div>
                 </div>
 
                 <div class="profile-badges">
                     <div class="badge gold">سازنده سایت</div>
                 </div>
+                
+                <!-- دکمه افزودن به دوستان -->
+        
             </div>
         </div>
 
@@ -556,6 +601,7 @@
                     📝 پست‌های سانیار
                 </div>
 
+                <!-- پست جدید اضافه شده -->
                 <div class="post">
                     <div class="post-header">
                         <div class="post-avatar">
@@ -563,11 +609,25 @@
                         </div>
                         <div>
                             <strong>سانیار سخدری <span class="verified-badge" title="تایید شده"></span></strong>
-                            <div class="post-time">۱۴ مرداد</div>
                         </div>
                     </div>
                     <div class="post-content">
-                      hello world 
+                        دارم دیوونه میشم از دست این سایت... 😫
+                        <span class="frustrated-emoji">😤</span>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-avatar">
+                            <img src="saniar1.png" alt="تصویر پروفایل سانیار">
+                        </div>
+                        <div>
+                            <strong>سانیار سخدری <span class="verified-badge" title="تایید شده"></span></strong>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        سانیار سخدری به تویتی پیوست
                     </div>
                 </div>
             </div>
@@ -594,55 +654,9 @@
                         <span>معدل: نا معلوم </span>
                     </div>
                 </div>
-
-                <!-- Subjects -->
-                <div class="info-card">
-                    <h3>📚 درس‌های مورد علاقه</h3>
-                    <div class="subject-item">
-                        <span>🧮 ریاضی</span>
-                        <span class="grade excellent">عالی</span>
-                    </div>
-                    <div class="subject-item">
-                        <span>⚡ فیزیک</span>
-                        <span class="grade excellent">عالی</span>
-                    </div>
-                    <div class="subject-item">
-                        <span>🧪 شیمی</span>
-                        <span class="grade good">خوب</span>
-                    </div>
-                </div>
                 
                 <!-- Friends Section -->
-                <div class="info-card">
-                    <div class="friends-header">
-                        <h3>👥 دوستان</h3>
-                        <span class="friends-count">۸</span>
-                    </div>
-                    
-                    <div class="friend-item">
-                        <div class="friend-avatar">
-                            <img src="https://via.placeholder.com/40" alt="دوست ۱">
-                        </div>
-                        <div class="friend-name">علی محمدی</div>
-                    </div>
-                    
-                    <div class="friend-item">
-                        <div class="friend-avatar">
-                            <img src="https://via.placeholder.com/40" alt="دوست ۲">
-                        </div>
-                        <div class="friend-name">سارا احمدی</div>
-                    </div>
-                    
-                    <div class="friend-item">
-                        <div class="friend-avatar">
-                            <img src="https://via.placeholder.com/40" alt="دوست ۳">
-                        </div>
-                        <div class="friend-name">محمد رضایی</div>
-                    </div>
-                    
-                    <div class="view-all-friends">
-                        مشاهده همه دوستان
-                    </div>
+            
                 </div>
             </div>
         </div>
@@ -651,24 +665,6 @@
     <script>
         // Interactive functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Follow button functionality
-            const followBtn = document.querySelector('.follow-btn');
-            let isFollowing = false;
-            
-            if (followBtn) {
-                followBtn.addEventListener('click', function() {
-                    if (isFollowing) {
-                        this.textContent = '+ دنبال کردن';
-                        this.style.background = 'linear-gradient(135deg, #1DA1F2, #0d8bd9)';
-                        isFollowing = false;
-                    } else {
-                        this.textContent = '✓ دنبال می‌کنید';
-                        this.style.background = 'linear-gradient(135deg, #2ed573, #27ae60)';
-                        isFollowing = true;
-                    }
-                });
-            }
-
             // Post interactions
             document.querySelectorAll('.post').forEach(post => {
                 post.addEventListener('click', function() {
