@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> سانیار سخدری </title>
+    <title>شایان رکنی زاده</title>
     <style>
         * {
             margin: 0;
@@ -59,9 +59,6 @@
         .header-info h1 {
             font-size: 1.5rem;
             margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .header-info p {
@@ -71,7 +68,7 @@
 
         .profile-banner {
             height: 200px;
-            background: url('saniar2.png') center/cover no-repeat;
+            background: url('') center/cover no-repeat;
             position: relative;
             overflow: hidden;
         }
@@ -104,18 +101,12 @@
             font-size: 2rem;
             margin-bottom: 5px;
             color: #1DA1F2;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .profile-username {
             color: #657786;
             font-size: 1.1rem;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .profile-bio {
@@ -476,26 +467,6 @@
             font-weight: bold;
             font-size: 0.9rem;
         }
-
-        /* استایل جدید برای تیک آبی با تصویر */
-        .verified-badge {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-image: url('blue.png');
-            background-size: cover;
-            background-position: center;
-            vertical-align: middle;
-        }
-
-        /* بهبود ریسپانسیو برای تیک آبی */
-        @media (max-width: 480px) {
-            .verified-badge {
-                width: 16px;
-                height: 16px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -504,7 +475,7 @@
         <header class="header">
             <button class="back-btn" onclick="history.back()">←</button>
             <div class="header-info">
-                <h1>سانیار سخدری <span class="verified-badge" title="تایید شده"></span></h1>
+                <h1>شایان رکنی زاده</h1>
                 <p>۱ پست</p>
             </div>
         </header>
@@ -515,14 +486,15 @@
         <!-- Profile Info -->
         <div class="profile-info">
             <div class="profile-avatar">
-                <img src="saniar1.png" alt="تصویر پروفایل سانیار">
+                <img src="Shayan1.png" alt="تصویر پروفایل شایان">
             </div>
             
             <div class="profile-details">
-                <h2>سانیار سخدری <span class="verified-badge" title="تایید شده"></span></h2>
-                <div class="profile-username">@Saniar <span class="verified-badge" title="تایید شده"></span></div>
+                <h2>شایان رکنی زاده</h2>
+                <div class="profile-username">@Shayan_genius</div>
                 <div class="profile-bio">
-                    دانش‌آموز کلاس دهم ریاضی 📚 عاشق ریاضی و فیزیک 🧮⚡ 
+                  بسکتبال
+درس
                     <br>
                     <br>
                 </div>
@@ -533,17 +505,9 @@
                         <span class="stat-label">پست</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">1۰</span>
-                        <span class="stat-label">امتیاز</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">۸</span>
+                        <span class="stat-number">۰</span>
                         <span class="stat-label">دوستان</span>
                     </div>
-                </div>
-
-                <div class="profile-badges">
-                    <div class="badge gold">سازنده سایت</div>
                 </div>
             </div>
         </div>
@@ -553,21 +517,20 @@
             <!-- Posts Section -->
             <div class="posts-section">
                 <div class="section-header">
-                    📝 پست‌های سانیار
+                    📝 پست‌های شایان
                 </div>
 
                 <div class="post">
                     <div class="post-header">
                         <div class="post-avatar">
-                            <img src="saniar1.png" alt="تصویر پروفایل سانیار">
+                            <img src="Shayan1.png" alt="تصویر پروفایل شایان">
                         </div>
                         <div>
-                            <strong>سانیار سخدری <span class="verified-badge" title="تایید شده"></span></strong>
-                            <div class="post-time">۱۴ مرداد</div>
+                            <strong>شایان رکنی زاده</strong>
                         </div>
                     </div>
                     <div class="post-content">
-                      hello world 
+                    شایان رکنی زاده به تویتی پیوست  
                     </div>
                 </div>
             </div>
@@ -579,7 +542,7 @@
                     <h3>📊 اطلاعات تحصیلی</h3>
                     <div class="info-item">
                         <span>🏫</span>
-                        <span>دبیرستان انرژی اتمی </span>
+                        <span>دبیرستان زنده یاد صادقی  </span>
                     </div>
                     <div class="info-item">
                         <span>📘</span>
@@ -596,57 +559,10 @@
                 </div>
 
                 <!-- Subjects -->
-                <div class="info-card">
-                    <h3>📚 درس‌های مورد علاقه</h3>
-                    <div class="subject-item">
-                        <span>🧮 ریاضی</span>
-                        <span class="grade excellent">عالی</span>
-                    </div>
-                    <div class="subject-item">
-                        <span>⚡ فیزیک</span>
-                        <span class="grade excellent">عالی</span>
-                    </div>
-                    <div class="subject-item">
-                        <span>🧪 شیمی</span>
-                        <span class="grade good">خوب</span>
-                    </div>
-                </div>
+                
                 
                 <!-- Friends Section -->
-                <div class="info-card">
-                    <div class="friends-header">
-                        <h3>👥 دوستان</h3>
-                        <span class="friends-count">۸</span>
-                    </div>
-                    
-                    <div class="friend-item">
-                        <div class="friend-avatar">
-                            <img src="https://via.placeholder.com/40" alt="دوست ۱">
-                        </div>
-                        <div class="friend-name">علی محمدی</div>
-                    </div>
-                    
-                    <div class="friend-item">
-                        <div class="friend-avatar">
-                            <img src="https://via.placeholder.com/40" alt="دوست ۲">
-                        </div>
-                        <div class="friend-name">سارا احمدی</div>
-                    </div>
-                    
-                    <div class="friend-item">
-                        <div class="friend-avatar">
-                            <img src="https://via.placeholder.com/40" alt="دوست ۳">
-                        </div>
-                        <div class="friend-name">محمد رضایی</div>
-                    </div>
-                    
-                    <div class="view-all-friends">
-                        مشاهده همه دوستان
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <script>
         // Interactive functionality
