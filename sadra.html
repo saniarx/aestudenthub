@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محمد صدرا همتی </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            padding: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(29, 161, 242, 0.3);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .header-info h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header-info p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .profile-banner {
+            height: 200px;
+            background: url('') center/cover no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-info {
+            padding: 20px;
+            position: relative;
+            margin-top: -80px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 6px solid white;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-details h2 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: #1DA1F2;
+        }
+
+        .profile-username {
+            color: #657786;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-bio {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: #1DA1F2;
+            box-shadow: 0 10px 25px rgba(29, 161, 242, 0.2);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1DA1F2;
+            display: block;
+        }
+
+        .stat-label {
+            color: #657786;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .profile-badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge.gold {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .badge.silver {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            padding: 0 20px 20px 20px;
+        }
+
+        .posts-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e1e8ed;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9ff, #ffffff);
+            border-bottom: 1px solid #e1e8ed;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1DA1F2;
+        }
+
+        .post {
+            padding: 20px;
+            border-bottom: 1px solid #e1e8ed;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .post:hover {
+            background: #f8f9ff;
+        }
+
+        .post:last-child {
+            border-bottom: none;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .post-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-content {
+            margin: 15px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .post-time {
+            color: #657786;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e1e8ed;
+        }
+
+        .info-card h3 {
+            color: #1DA1F2;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #1DA1F2;
+            padding-bottom: 5px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: #f8f9ff;
+        }
+
+        .subject-item {
+            background: #f8f9ff;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .subject-item:hover {
+            background: #1DA1F2;
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .grade {
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .grade.excellent {
+            background: #2ed573;
+            color: white;
+        }
+
+        .grade.good {
+            background: #ffa502;
+            color: white;
+        }
+
+        .grade.average {
+            background: #ff6348;
+            color: white;
+        }
+
+        /* استایل‌های جدید برای بخش دوستان */
+        .friends-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .friends-count {
+            background: #1DA1F2;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .friend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .friend-item:hover {
+            background: #f8f9ff;
+            transform: translateX(-3px);
+        }
+        
+        .friend-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #f0f0f0;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .friend-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .friend-name {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .view-all-friends {
+            text-align: center;
+            margin-top: 10px;
+            padding: 8px;
+            background: #f8f9ff;
+            border-radius: 10px;
+            color: #1DA1F2;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .view-all-friends:hover {
+            background: #1DA1F2;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+            }
+            
+            .header {
+                padding: 15px;
+            }
+            
+            .profile-info {
+                padding: 15px;
+            }
+        }
+
+        .follow-btn {
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .follow-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 161, 242, 0.4);
+        }
+
+        .achievements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .achievement {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .achievement:hover {
+            background: #1DA1F2;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .achievement-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <button class="back-btn" onclick="history.back()">←</button>
+            <div class="header-info">
+                <h1>محمد صدرا همتی  </h1>
+                <p>۱ پست</p>
+            </div>
+        </header>
+
+        <!-- Profile Banner -->
+        <div class="profile-banner"></div>
+
+        <!-- Profile Info -->
+        <div class="profile-info">
+            <div class="profile-avatar">
+                <img src="sadra1.png" alt="تصویر پروفایل صدرا">
+            </div>
+            
+            <div class="profile-details">
+                <h2>محمد صدرا همتی  </h2>
+                <div class="profile-username">@Hadra88</div>
+                <div class="profile-bio">
+𝑯𝒂𝒔𝒃𝒊 𝑨𝒍𝒍𝒂𝒉 ☕️🤎
+
+                    <br>
+                    <br>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">۱</span>
+                        <span class="stat-label">پست</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">۰</span>
+                        <span class="stat-label">دوستان</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="profile-content">
+            <!-- Posts Section -->
+            <div class="posts-section">
+                <div class="section-header">
+                    📝 پست‌های صدرا
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-avatar">
+                            <img src="sadra1.png" alt="تصویر پروفایل صدرا">
+                        </div>
+                        <div>
+                            <strong>محمد صدرا همتی  </strong>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                    محمد صدرا همتی به تویتی پیوست  
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Info -->
+            <div class="sidebar-info">
+                <!-- Academic Info -->
+                <div class="info-card">
+                    <h3>📊 اطلاعات تحصیلی</h3>
+                    <div class="info-item">
+                        <span>🏫</span>
+                        <span>دبیرستان انرژی اتمی    </span>
+                    </div>
+                    <div class="info-item">
+                        <span>📘</span>
+                        <span>کلاس دهم ریاضی</span>
+                    </div>
+                    <div class="info-item">
+                        <span>📅</span>
+                        <span>سال تحصیلی ۱۴۰۳-۱۴۰۴</span>
+                    </div>
+                    <div class="info-item">
+                        <span>🎯</span>
+                        <span>معدل: نا معلوم </span>
+                    </div>
+                </div>
+
+                <!-- Subjects -->
+                
+                
+                <!-- Friends Section -->
+
+
+    <script>
+        // Interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Follow button functionality
+            const followBtn = document.querySelector('.follow-btn');
+            let isFollowing = false;
+            
+            if (followBtn) {
+                followBtn.addEventListener('click', function() {
+                    if (isFollowing) {
+                        this.textContent = '+ دنبال کردن';
+                        this.style.background = 'linear-gradient(135deg, #1DA1F2, #0d8bd9)';
+                        isFollowing = false;
+                    } else {
+                        this.textContent = '✓ دنبال می‌کنید';
+                        this.style.background = 'linear-gradient(135deg, #2ed573, #27ae60)';
+                        isFollowing = true;
+                    }
+                });
+            }
+
+            // Post interactions
+            document.querySelectorAll('.post').forEach(post => {
+                post.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+
+            // Stats animation on hover
+            document.querySelectorAll('.stat-item').forEach(stat => {
+                stat.addEventListener('mouseenter', function() {
+                    const number = this.querySelector('.stat-number');
+                    number.style.transform = 'scale(1.2)';
+                });
+                
+                stat.addEventListener('mouseleave', function() {
+                    const number = this.querySelector('.stat-number');
+                    number.style.transform = 'scale(1)';
+                });
+            });
+
+            // Achievement hover effects
+            document.querySelectorAll('.achievement').forEach(achievement => {
+                achievement.addEventListener('click', function() {
+                    this.style.animation = 'pulse 0.5s ease-in-out';
+                    setTimeout(() => {
+                        this.style.animation = '';
+                    }, 500);
+                });
+            });
+            
+            // View all friends functionality
+            const viewAllFriends = document.querySelector('.view-all-friends');
+            if (viewAllFriends) {
+                viewAllFriends.addEventListener('click', function() {
+                    alert('صفحه لیست کامل دوستان باز خواهد شد');
+                });
+            }
+            
+            // Friend item click functionality
+            document.querySelectorAll('.friend-item').forEach(friend => {
+                friend.addEventListener('click', function() {
+                    const name = this.querySelector('.friend-name').textContent;
+                    alert(`پروفایل ${name} باز خواهد شد`);
+                });
+            });
+        });
+
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
