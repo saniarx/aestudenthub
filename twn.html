@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>twiti - آپلود جزوات</title>
+    <style>
+        /* استایل‌های پایه */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: #121212;
+            color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .container {
+            background: rgba(30, 39, 46, 0.95);
+            color: #f0f0f0;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            min-height: calc(100vh - 60px);
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: fit-content;
+            border: 1px solid #e1e8ed;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .sidebar {
+            background: #1e272e;
+            border-color: #2d3436;
+        }
+
+        .sidebar h3 {
+            color: #1DA1F2;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #1DA1F2;
+            padding-bottom: 5px;
+        }
+
+        .menu-item {
+            padding: 12px 15px;
+            margin: 5px 0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-item:hover {
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        body.dark-mode .menu-item {
+            color: #f0f0f0;
+        }
+
+        .feed {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e1e8ed;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .feed {
+            background: #1e272e;
+            border-color: #2d3436;
+        }
+
+        .upload-section {
+            padding: 20px;
+            border-bottom: 1px solid #e1e8ed;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .upload-section {
+            background: #1e272e;
+            border-color: #2d3436;
+        }
+
+        .upload-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px dashed #e1e8ed;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+        }
+
+        body.dark-mode .upload-input {
+            background: #2d3436;
+            border-color: #3d3d3d;
+            color: #f0f0f0;
+        }
+
+        .upload-input:hover {
+            border-color: #1DA1F2;
+            background: rgba(29, 161, 242, 0.1);
+        }
+
+        .upload-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .upload-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .upload-field label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #657786;
+        }
+
+        body.dark-mode .upload-field label {
+            color: #a4b0be;
+        }
+
+        .upload-field input,
+        .upload-field select,
+        .upload-field textarea {
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-family: inherit;
+            background: white;
+            color: #333;
+        }
+
+        body.dark-mode .upload-field input,
+        body.dark-mode .upload-field select,
+        body.dark-mode .upload-field textarea {
+            background: #2d3436;
+            border-color: #3d3d3d;
+            color: #f0f0f0;
+        }
+
+        .upload-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 161, 242, 0.4);
+        }
+
+        .notes-list {
+            padding: 20px;
+        }
+
+        .note-item {
+            padding: 20px;
+            border-bottom: 1px solid #e1e8ed;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        body.dark-mode .note-item {
+            border-color: #2d3436;
+        }
+
+        .note-item:hover {
+            background: #f8f9ff;
+        }
+
+        body.dark-mode .note-item:hover {
+            background: #2d3436;
+        }
+
+        .note-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .note-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #1DA1F2;
+        }
+
+        .note-details {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            color: #657786;
+            font-size: 0.9rem;
+        }
+
+        body.dark-mode .note-details {
+            color: #a4b0be;
+        }
+
+        .note-description {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .note-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            max-width: 400px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #657786;
+        }
+
+        body.dark-mode .action-btn {
+            color: #a4b0be;
+        }
+
+        .action-btn:hover {
+            background: rgba(29, 161, 242, 0.1);
+            color: #1DA1F2;
+        }
+
+        .trending {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: fit-content;
+            border: 1px solid #e1e8ed;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .trending {
+            background: #1e272e;
+            border-color: #2d3436;
+        }
+
+        .trending-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .trending-item {
+            border-color: #2d3436;
+        }
+
+        .trending-item:hover {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 15px 10px;
+        }
+
+        body.dark-mode .trending-item:hover {
+            background: #2d3436;
+        }
+
+        .trending-topic {
+            font-weight: bold;
+            color: #1DA1F2;
+            margin-bottom: 5px;
+        }
+
+        .trending-count {
+            color: #657786;
+            font-size: 0.9rem;
+        }
+
+        body.dark-mode .trending-count {
+            color: #a4b0be;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 10px;
+            }
+            
+            .sidebar, .trending {
+                order: 3;
+            }
+            
+            .upload-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .notification-badge {
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+
+        .online-indicator {
+            width: 12px;
+            height: 12px;
+            background: #2ed573;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            border: 2px solid white;
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(29, 161, 242, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-action:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(29, 161, 242, 0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #ffffff;
+            border-top: 1px solid #e1e8ed;
+            font-size: 0.9rem;
+            color: #657786;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode footer {
+            background: #1e272e;
+            border-color: #2d3436;
+            color: #a4b0be;
+        }
+
+        footer a {
+            color: #1DA1F2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: rgba(0, 0, 0, 0.2);
+            color: #f0f0f0;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .telegram-icon {
+            color: #0088cc;
+            font-size: 1.2rem;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .verified-badge {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            margin-right: 5px;
+            margin-left: 5px;
+            background: #1DA1F2;
+            color: white;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 480px) {
+            .verified-badge {
+                width: 16px;
+                height: 16px;
+                line-height: 16px;
+                font-size: 10px;
+            }
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        body.dark-mode .file-info {
+            background: #2d3436;
+        }
+
+        .file-icon {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" title="تغییر حالت شب/روز">🌙</button>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Left Sidebar -->
+            <div class="sidebar">
+                <h3>📚 منوی اصلی</h3>
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <div class="menu-item">
+                        <span>🏠</span>
+                        <span>خانه</span>
+                    </div>
+                </a>
+                <a href="notes.html" style="text-decoration: none; color: inherit;">
+                    <div class="menu-item" style="background: linear-gradient(135deg, #1DA1F2, #0d8bd9); color: white;">
+                        <span>📚</span>
+                        <span>جزوات</span>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSFIlS61r4P0wn7IulwNz4_hpNzObtGHFeFW3N76qJkFRkIw/viewform?usp=dialog" style="text-decoration: none; color: inherit;">
+                    <div class="menu-item">
+                        <span>📨</span>
+                        <span>ساخت پست</span>
+                    </div>
+                </a>
+                <a href="https://docs.google.com/forms/d/15UyWmMkKK3bsroll4FsxCwSErim6PIRDJbav0mV4fks/edit" style="text-decoration: none; color: inherit;">
+                    <div class="menu-item">
+                        <span>⚙️</span>
+                        <span>ساخت اکانت</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="feed">
+                <!-- Upload Section -->
+                <div class="upload-section">
+                    <div class="upload-header">
+                        <div class="avatar" style="position: relative;">
+                            <img src="hello.png" alt="تصویر پروفایل">
+                            <div class="online-indicator"></div>
+                        </div>
+                        <h3>آپلود جزوه جدید</h3>
+                    </div>
+                    
+                    <div class="upload-input" id="fileDropArea">
+                        <p>📁 فایل جزوه را اینجا رها کنید یا برای انتخاب کلیک کنید</p>
+                        <input type="file" id="fileInput" style="display: none;" accept=".pdf,.doc,.docx,.ppt,.pptx">
+                    </div>
+                    
+                    <div id="fileInfo" class="file-info" style="display: none;">
+                        <div class="file-icon">📄</div>
+                        <div>
+                            <div id="fileName">نام فایل</div>
+                            <div id="fileSize">حجم فایل</div>
+                        </div>
+                    </div>
+                    
+                    <div class="upload-details">
+                        <div class="upload-field">
+                            <label for="noteTitle">عنوان جزوه</label>
+                            <input type="text" id="noteTitle" placeholder="عنوان جزوه را وارد کنید">
+                        </div>
+                        <div class="upload-field">
+                            <label for="noteCourse">درس مربوطه</label>
+                            <select id="noteCourse">
+                                <option value="">درس را انتخاب کنید</option>
+                                <option value="ریاضی">ریاضی</option>
+                                <option value="فیزیک">فیزیک</option>
+                                <option value="شیمی">شیمی</option>
+                                <option value="ادبیات">ادبیات</option>
+                                <option value="زبان">زبان انگلیسی</option>
+                                <option value="دینی">معارف</option>
+                                <option value="عربی">عربی</option>
+                                <option value="زیست">زیست شناسی</option>
+                            </select>
+                        </div>
+                        <div class="upload-field">
+                            <label for="noteGrade">پایه تحصیلی</label>
+                            <select id="noteGrade">
+                                <option value="">پایه را انتخاب کنید</option>
+                                <option value="دهم">دهم</option>
+                                <option value="یازدهم">یازدهم</option>
+                                <option value="دوازدهم">دوازدهم</option>
+                            </select>
+                        </div>
+                        <div class="upload-field">
+                            <label for="noteTeacher">دبیر مربوطه</label>
+                            <input type="text" id="noteTeacher" placeholder="نام دبیر">
+                        </div>
+                    </div>
+                    
+                    <div class="upload-field">
+                        <label for="noteDescription">توضیحات جزوه</label>
+                        <textarea id="noteDescription" rows="3" placeholder="توضیحات مربوط به جزوه را وارد کنید..."></textarea>
+                    </div>
+                    
+                    <div class="upload-actions">
+                        <div class="compose-icons">
+                            <div class="compose-icon" title="افزودن تصویر">🖼️</div>
+                            <div class="compose-icon" title="افزودن تگ">🏷️</div>
+                        </div>
+                        <button class="upload-btn" id="uploadButton">آپلود جزوه</button>
+                    </div>
+                </div>
+                
+                <!-- Notes List -->
+                <div class="notes-list">
+                    <h3 style="margin-bottom: 15px;">📚 جزوات آپلود شده</h3>
+                    
+                    <div class="note-item">
+                        <div class="note-header">
+                            <div class="avatar">
+                                <img src="saniar1.png" alt="تصویر پروفایل">
+                            </div>
+                            <div>
+                                <strong>سانیار سخدری</strong>
+                                <span class="verified-badge" title="تایید شده">✓</span>
+                                <span style="color: #657786; margin-right: 10px;">@saniar</span>
+                            </div>
+                        </div>
+                        <div class="note-title">خلاصه فصل سوم ریاضی</div>
+                        <div class="note-details">
+                            <span>درس: ریاضی</span>
+                            <span>پایه: یازدهم</span>
+                            <span>دبیر: احمدی</span>
+                        </div>
+                        <div class="note-description">
+                            این جزوه شامل خلاصه فرمول‌ها و نکات مهم فصل سوم ریاضی یازدهم است.
+                        </div>
+                        <div class="note-actions">
+                            <div class="action-btn">
+                                <span>📥</span>
+                                <span>دانلود</span>
+                            </div>
+                            <div class="action-btn">
+                                <span>❤️</span>
+                                <span>12</span>
+                            </div>
+                            <div class="action-btn">
+                                <span>🔖</span>
+                                <span>ذخیره</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-item">
+                        <div class="note-header">
+                            <div class="avatar">
+                                <img src="Arvin1.png" alt="تصویر پروفایل">
+                            </div>
+                            <div>
+                                <strong>آروین اعلمی</strong>
+                                <span style="color: #657786; margin-right: 10px;">@Q92</span>
+                            </div>
+                        </div>
+                        <div class="note-title">نکات مهم شیمی آلی</div>
+                        <div class="note-details">
+                            <span>درس: شیمی</span>
+                            <span>پایه: دوازدهم</span>
+                            <span>دبیر: رضایی</span>
+                        </div>
+                        <div class="note-description">
+                            کاملترین خلاصه نکات شیمی آلی برای امتحان نهایی. حتما قبل از امتحان مطالعه کنید.
+                        </div>
+                        <div class="note-actions">
+                            <div class="action-btn">
+                                <span>📥</span>
+                                <span>دانلود</span>
+                            </div>
+                            <div class="action-btn">
+                                <span>❤️</span>
+                                <span>24</span>
+                            </div>
+                            <div class="action-btn">
+                                <span>🔖</span>
+                                <span>ذخیره</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-item">
+                        <div class="note-header">
+                            <div class="avatar">
+                                <img src="sepehr1.png" alt="تصویر پروفایل">
+                            </div>
+                            <div>
+                                <strong>سپهر ضرغامی</strong>
+                                <span style="color: #657786; margin-right: 10px;">@sepehr</span>
+                            </div>
+                        </div>
+                        <div class="note-title">تست‌های فیزیک مدرسان</div>
+                        <div class="note-details">
+                            <span>درس: فیزیک</span>
+                            <span>پایه: دهم</span>
+                            <span>دبیر: محمدی</span>
+                        </div>
+                        <div class="note-description">
+                            مجموعه تست‌های فیزیک دهم به همراه پاسخ تشریحی. مناسب برای آمادگی کنکور.
+                        </div>
+                        <div class="note-actions">
+                            <div class="action-btn">
+                                <span>📥</span>
+                                <span>دانلود</span>
+                            </div>
+                            <div class="action-btn">
+                                <span>❤️</span>
+                                <span>18</span>
+                            </div>
+                            <div class="action-btn">
+                                <span>🔖</span>
+                                <span>ذخیره</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar - Trending -->
+            <div class="trending">
+                <h3>🔥 پرطرفدارترین جزوات</h3>
+                
+                <div class="trending-item">
+                    <div class="trending-topic">#ریاضی_یازدهم</div>
+                    <div class="trending-count">۱۲ جزوه</div>
+                </div>
+
+                <div class="trending-item">
+                    <div class="trending-topic">#شیمی_دوازدهم</div>
+                    <div class="trending-count">۸ جزوه</div>
+                </div>
+
+                <div class="trending-item">
+                    <div class="trending-topic">#فیزیک_کنکور</div>
+                    <div class="trending-count">۱۵ جزوه</div>
+                </div>
+
+                <hr style="margin: 20px 0; border: none; border-top: 1px solid #e1e8ed;">
+                
+                <h3 style="margin-top: 20px;">👥 برترین آپلودکنندگان</h3>
+                
+                <div style="margin-top: 15px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; border-radius: 10px; cursor: pointer;" onmouseover="this.style.background='#f8f9ff'" onmouseout="this.style.background='transparent'">
+                        <a href="saniar.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px; width: 100%;">
+                            <div class="avatar" style="width: 35px; height: 35px;">
+                                <img src="saniar1.png" alt="تصویر پروفایل سانیار" style="width: 100%; height: 100%;">
+                            </div>
+                            <div>
+                                <strong style="font-size: 0.9rem;">سانیار سخدری</strong>
+                                <span class="verified-badge" title="تایید شده" style="width: 14px; height: 14px; line-height: 14px;">✓</span>
+                                <div style="color: #657786; font-size: 0.8rem;">۵ جزوه</div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; border-radius: 10px; cursor: pointer;" onmouseover="this.style.background='#f8f9ff'" onmouseout="this.style.background='transparent'">
+                        <a href="arvin.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px; width: 100%;">
+                            <div class="avatar" style="width: 35px; height: 35px;">
+                                <img src="Arvin1.png" alt="تصویر پروفایل آروین" style="width: 100%; height: 100%;">
+                            </div>
+                            <div>
+                                <strong style="font-size: 0.9rem;">آروین اعلمی</strong>
+                                <div style="color: #657786; font-size: 0.8rem;">۳ جزوه</div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; border-radius: 10px; cursor: pointer;" onmouseover="this.style.background='#f8f9ff'" onmouseout="this.style.background='transparent'">
+                        <a href="sepehr.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px; width: 100%;">
+                            <div class="avatar" style="width: 35px; height: 35px;">
+                                <img src="sepehr1.png" alt="تصویر پروفایل سپهر" style="width: 100%; height: 100%;">
+                            </div>
+                            <div>
+                                <strong style="font-size: 0.9rem;">سپهر ضرغامی</strong>
+                                <div style="color: #657786; font-size: 0.8rem;">۲ جزوه</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <a href="https://t.me/your_telegram_channel" class="telegram-icon" title="کانال تلگرام ما">📨</a>
+            ساخته شده با عشق توسط <a href="saniar.html">سانیار سخدری <span class="verified-badge" title="تایید شده" style="width: 14px; height: 14px; line-height: 14px;">✓</span></a>
+        </footer>
+
+        <!-- Floating Action Button -->
+        <div class="floating-action" title="آپلود جزوه جدید" id="floatingUpload">
+            📚
+        </div>
+    </div>
+
+    <script>
+        // Dark mode toggle functionality
+        const darkModeToggle = document.querySelector('.dark-mode-toggle');
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            this.innerHTML = isDarkMode ? '☀️' : '🌙';
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '☀️';
+        }
+
+        // File upload functionality
+        const fileInput = document.getElementById('fileInput');
+        const fileDropArea = document.getElementById('fileDropArea');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const uploadButton = document.getElementById('uploadButton');
+        const floatingUpload = document.getElementById('floatingUpload');
+
+        fileDropArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileDropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileDropArea.style.borderColor = '#1DA1F2';
+            fileDropArea.style.background = 'rgba(29, 161, 242, 0.1)';
+        });
+
+        fileDropArea.addEventListener('dragleave', () => {
+            fileDropArea.style.borderColor = '#e1e8ed';
+            fileDropArea.style.background = '#f8f9fa';
+            
+            if (document.body.classList.contains('dark-mode')) {
+                fileDropArea.style.background = '#2d3436';
+                fileDropArea.style.borderColor = '#3d3d3d';
+            }
+        });
+
+        fileDropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            // Check if file is a supported type
+            const supportedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+                                  'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'];
+            
+            if (!supportedTypes.includes(file.type)) {
+                alert('لطفاً یک فایل PDF، Word یا PowerPoint انتخاب کنید.');
+                return;
+            }
+            
+            // Show file info
+            fileName.textContent = file.name;
+            
+            // Format file size
+            const fileSizeValue = file.size;
+            let sizeText;
+            if (fileSizeValue < 1024) {
+                sizeText = fileSizeValue + ' بایت';
+            } else if (fileSizeValue < 1024 * 1024) {
+                sizeText = (fileSizeValue / 1024).toFixed(1) + ' کیلوبایت';
+            } else {
+                sizeText = (fileSizeValue / (1024 * 1024)).toFixed(1) + ' مگابایت';
+            }
+            fileSize.textContent = sizeText;
+            
+            fileInfo.style.display = 'flex';
+        }
+
+        uploadButton.addEventListener('click', () => {
+            const title = document.getElementById('noteTitle').value;
+            const course = document.getElementById('noteCourse').value;
+            
+            if (!fileInput.files.length) {
+                alert('لطفاً یک فایل برای آپلود انتخاب کنید.');
+                return;
+            }
+            
+            if (!title || !course) {
+                alert('لطفاً عنوان جزوه و درس مربوطه را وارد کنید.');
+                return;
+            }
+            
+            // Simulate upload process
+            uploadButton.textContent = 'در حال آپلود...';
+            uploadButton.disabled = true;
+            
+            setTimeout(() => {
+                alert('جزوه با موفقیت آپلود شد!');
+                uploadButton.textContent = 'آپلود جزوه';
+                uploadButton.disabled = false;
+                
+                // Reset form
+                document.getElementById('noteTitle').value = '';
+                document.getElementById('noteCourse').value = '';
+                document.getElementById('noteGrade').value = '';
+                document.getElementById('noteTeacher').value = '';
+                document.getElementById('noteDescription').value = '';
+                fileInfo.style.display = 'none';
+                fileInput.value = '';
+            }, 2000);
+        });
+
+        floatingUpload.addEventListener('click', () => {
+            document.querySelector('.upload-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Like button functionality
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (this.innerHTML.includes('❤️')) {
+                    const count = this.querySelector('span:last-child');
+                    if (count) {
+                        // Toggle like state
+                        if (this.style.color !== 'rgb(225, 48, 108)') {
+                            this.style.color = '#e1306c';
+                            count.textContent = parseInt(count.textContent) + 1;
+                        } else {
+                            this.style.color = '';
+                            count.textContent = parseInt(count.textContent) - 1;
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
